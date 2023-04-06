@@ -8,7 +8,6 @@ class WeatherPageStateNotifier extends StateNotifier<WeatherPageState> {
   WeatherPageStateNotifier() : super(const WeatherPageState.initial());
 
   void detectLocation() {
-
   }
 
 
