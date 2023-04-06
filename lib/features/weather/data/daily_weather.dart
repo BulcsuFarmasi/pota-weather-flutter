@@ -5,5 +5,5 @@ part 'daily_weather.freezed.dart';
 
 @freezed
 class DailyWeather with _$DailyWeather {
-  const factory DailyWeather({required WeatherCondition condition, required double temperature}) = _DailyWeather;
+  const factory DailyWeather(WeatherCondition condition, int temperature) = _DailyWeather;
 }
