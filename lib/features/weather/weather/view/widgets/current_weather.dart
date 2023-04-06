@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pota_weather_flutter/features/weather/data/daily_weather.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/location.dart';
 
 class CurrentWeather extends StatelessWidget {
   const CurrentWeather({
@@ -15,9 +16,8 @@ class CurrentWeather extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          location,
-          style: const TextStyle(fontSize: 22, color: Colors.white),
+        Location(
+          location: location,
         ),
         Image.network(
           weather.condition.iconUrl,

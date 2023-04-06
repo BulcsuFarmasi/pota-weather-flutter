@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pota_weather_flutter/features/weather/data/daily_weather.dart';
 import 'package:pota_weather_flutter/features/weather/data/weather.dart';
 import 'package:pota_weather_flutter/features/weather/data/weather_condition.dart';
-import 'package:pota_weather_flutter/features/weather/weather/view/pages/widgets/current_weather.dart';
-import 'package:pota_weather_flutter/features/weather/weather/view/pages/widgets/forecast.dart';
-import 'package:pota_weather_flutter/features/weather/weather/view/pages/widgets/weather_box.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_load_in_progress.dart';
 
 class WeatherPage extends StatelessWidget {
   WeatherPage({super.key});
@@ -19,23 +17,11 @@ class WeatherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              WeatherBox(
-                  child: CurrentWeather(
-                weather: weather.currentWeather,
-                location: weather.location,
-              )),
-              Expanded(
-                flex: 1,
-                child: Forecast(forecast: weather.forecast),
-              )
-            ],
-          ),
+          padding: EdgeInsets.all(10),
+          child: WeatherLoadInProgress(location: 'Budapest'),
         ),
       ),
     );

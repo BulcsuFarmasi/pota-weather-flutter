@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pota_weather_flutter/features/weather/data/daily_weather.dart';
-import 'package:pota_weather_flutter/features/weather/weather/view/pages/widgets/forecast_item.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/forecast_item.dart';
 
 class Forecast extends StatelessWidget {
   const Forecast({
