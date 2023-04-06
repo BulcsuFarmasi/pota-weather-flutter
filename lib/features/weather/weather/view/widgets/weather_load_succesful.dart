@@ -19,7 +19,7 @@ class WeatherLoadSuccessful extends StatelessWidget {
         WeatherBox(
             child: CurrentWeather(
               weather: weather.currentWeather,
-              location: weather.location,
+              settlement: weather.settlement,
             )),
         Expanded(
           flex: 1,

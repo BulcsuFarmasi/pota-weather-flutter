@@ -5,5 +5,5 @@ part 'weather.freezed.dart';
 
 @freezed
 class Weather with _$Weather{
-  const factory Weather(String location, DailyWeather currentWeather, Map<DateTime, DailyWeather> forecast) = _Weather;
+  const factory Weather(String settlement, DailyWeather currentWeather, Map<DateTime, DailyWeather> forecast) = _Weather;
 }

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:pota_weather_flutter/features/weather/data/daily_weather.dart';
-import 'package:pota_weather_flutter/features/weather/weather/view/widgets/location.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/settlement.dart';
 
 class CurrentWeather extends StatelessWidget {
   const CurrentWeather({
     super.key,
     required this.weather,
-    required this.location,
+    required this.settlement,
   });
 
   final DailyWeather weather;
-  final String location;
+  final String settlement;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Location(
-          location: location,
+        Settlement(
+          settlement: settlement,
         ),
         Image.network(
           weather.condition.iconUrl,

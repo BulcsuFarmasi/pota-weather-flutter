@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Location extends StatelessWidget {
-  const Location({super.key, required this.location});
+class Settlement extends StatelessWidget {
+  const Settlement({super.key, required this.settlement});
 
-  final String location;
+  final String settlement;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      location,
+      settlement,
       style: const TextStyle(fontSize: 30, color: Colors.white),
     );
   }

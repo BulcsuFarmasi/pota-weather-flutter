@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_box.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_scaffold.dart';
 
-class WeatherLocationInput extends StatelessWidget {
-  const WeatherLocationInput({super.key});
+class WeatherSettlementInput extends StatelessWidget {
+  const WeatherSettlementInput({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class WeatherLocationInput extends StatelessWidget {
         child: Column(
           children: const [
             Text(
-              'Location wasn\'t successful, please provide your location below',
+              'Settlement wasn\'t successful, please provide your settlement below',
               style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),

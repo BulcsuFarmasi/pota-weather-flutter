@@ -12,7 +12,7 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.black,
       ),
-      home: WeatherPage(),
+      home: const WeatherPage(),
     );
   }
 }
