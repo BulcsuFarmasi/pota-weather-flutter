@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pota_weather_flutter/features/weather/data/location.dart';
+import 'package:pota_weather_flutter/features/weather/data/position.dart';
+import 'package:pota_weather_flutter/features/weather/service/position_local.dart';
 import 'package:pota_weather_flutter/features/weather/weather/controller/weather_page_state.dart';
 import 'package:pota_weather_flutter/features/weather/weather/model/weather_repository.dart';
 
@@ -12,9 +13,13 @@ class WeatherPageStateNotifier extends StateNotifier<WeatherPageState> {
 
   final WeatherRepository _weatherRepository;
 
-  void detectLocation() {
+  void detectLocation() async {
     state = const WeatherPageState.locatingInProgress();
 
-    final Location location = _weatherRepository.getLocation();
+    final Position position = await _weatherRepository.getPosition();
+
+    final String settlement = _weatherRepository.getSettlement(position);
+
+    state = WeatherPageState.weatherLoadInProgress(settlement);
   }
 }
