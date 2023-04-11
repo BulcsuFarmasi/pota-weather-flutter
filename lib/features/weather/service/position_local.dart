@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
-import 'package:pota_weather_flutter/features/weather/data/position.dart';
+import 'package:pota_weather_flutter/features/weather/data/position_exception.dart';
 import 'package:pota_weather_flutter/shared/providers/location_provider.dart';
 
 final Provider<PositionLocal> positionLocalProvider = Provider<PositionLocal>(
@@ -14,20 +14,22 @@ class PositionLocal {
 
   final Location _location;
 
-  Future<LocationData?> getPosition() async {
+  Future<LocationData> getPosition() async {
+
     bool serviceEnabled = await _location.serviceEnabled();
+
+    serviceEnabled = !serviceEnabled ? await _location.requestService() : serviceEnabled;
+
     if (!serviceEnabled) {
-      serviceEnabled = await _location.requestService();
-      if (!serviceEnabled) {
-        return Future.value(null);
-      }
+      throw PositionException();
     }
-    PermissionStatus permissonGranted = await _location.hasPermission();
-    if (permissonGranted == PermissionStatus.denied) {
-      permissonGranted = await _location.requestPermission();
-      if (permissonGranted != PermissionStatus.granted) {
-        return Future.value(null);
-      }
+
+    PermissionStatus permission = await _location.hasPermission();
+
+    permission = permission == PermissionStatus.denied ? await _location.requestPermission() : permission;
+
+    if (permission != PermissionStatus.granted) {
+      throw PositionException();
     }
 
     return _location.getLocation();

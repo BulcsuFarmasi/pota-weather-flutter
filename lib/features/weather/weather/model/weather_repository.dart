@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 import 'package:pota_weather_flutter/features/weather/data/daily_weather.dart';
 import 'package:pota_weather_flutter/features/weather/data/position.dart';
+import 'package:pota_weather_flutter/features/weather/data/position_exception.dart';
 import 'package:pota_weather_flutter/features/weather/data/remote_current_weather.dart';
 import 'package:pota_weather_flutter/features/weather/data/remote_forecast.dart';
 import 'package:pota_weather_flutter/features/weather/data/remote_forecast_item.dart';
@@ -24,8 +25,13 @@ class WeatherRepository {
   final WeatherService _weatherService;
 
   Future<Position> getPosition() async {
+    try {
+
     final LocationData locationData = await _positionService.getPosition();
     return Position(locationData.latitude!, locationData.longitude!);
+    } on PositionException {
+      rethrow;
+    }
   }
 
   Future<String> getSettlement(Position position) async {
@@ -33,6 +39,7 @@ class WeatherRepository {
   }
 
   Future<Weather> getWeather(Position position, String settlement) async {
+    print('should');
     final RemoteCurrentWeather remoteCurrentWeather = await _weatherService.getCurrentWeather(position);
 
     final DailyWeather currentWeather = DailyWeather(
