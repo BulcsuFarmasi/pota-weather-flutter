@@ -7,7 +7,7 @@ part 'remote_current_weather.g.dart';
 
 @freezed
 class RemoteCurrentWeather with _$RemoteCurrentWeather{
-  const factory RemoteCurrentWeather({required RemoteWeatherMain main, required RemoteWeatherData weather}) = _RemoteCurrentWeather;
+  const factory RemoteCurrentWeather({required RemoteWeatherMain main, required List<RemoteWeatherData> weather}) = _RemoteCurrentWeather;
 
   factory RemoteCurrentWeather.fromJson(Map<String, Object?> json) => _$RemoteCurrentWeatherFromJson(json);
 }

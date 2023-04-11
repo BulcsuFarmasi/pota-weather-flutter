@@ -28,7 +28,7 @@ class CurrentWeather extends StatelessWidget {
           style: const TextStyle(fontSize: 116, color: Colors.white),
         ),
         Text(
-          weather.condition.text,
+          weather.condition.description,
           style: const TextStyle(fontSize: 22, color: Colors.white),
         )
       ],

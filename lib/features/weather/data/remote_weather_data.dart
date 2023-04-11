@@ -5,7 +5,7 @@ part 'remote_weather_data.g.dart';
 
 @freezed
 class RemoteWeatherData with _$RemoteWeatherData{
-  const factory RemoteWeatherData(double temp) = _RemoteWeatherData;
+  const factory RemoteWeatherData(String main, String icon) = _RemoteWeatherData;
 
   factory RemoteWeatherData.fromJson(Map<String, Object?> json) => _$RemoteWeatherDataFromJson(json);
 }
