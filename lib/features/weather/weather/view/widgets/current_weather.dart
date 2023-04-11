@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pota_weather_flutter/features/weather/data/daily_weather.dart';
+import 'package:pota_weather_flutter/features/weather/weather/controller/weather_page_state_notifier.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/settlement.dart';
 
-class CurrentWeather extends StatelessWidget {
+class CurrentWeather extends ConsumerWidget {
   const CurrentWeather({
     super.key,
     required this.weather,
@@ -12,16 +14,34 @@ class CurrentWeather extends StatelessWidget {
   final DailyWeather weather;
   final String settlement;
 
+  void _restorePage(WidgetRef ref) {
+    ref.read(weatherPageStateNotifierProvider.notifier).restoreToInitial();
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        Settlement(
-          settlement: settlement,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Settlement(settlement: settlement),
+            IconButton(
+              onPressed: () {
+                _restorePage(ref);
+              },
+              icon: const Icon(Icons.refresh),
+              iconSize: 30,
+              color: Colors.white,
+            )
+          ],
         ),
-        Image.network(
-          weather.condition.iconUrl,
-          width: 375,
+        SizedBox(
+          height: 375,
+          child: Image.network(
+            weather.condition.iconUrl,
+            width: 375,
+          ),
         ),
         Text(
           '${weather.temperature} °C',

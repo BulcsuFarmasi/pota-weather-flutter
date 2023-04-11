@@ -12,7 +12,6 @@ class WeatherSettlementInput extends ConsumerStatefulWidget {
 }
 
 class _WeatherSettlementInputState extends ConsumerState<WeatherSettlementInput> {
-  
   final TextEditingController _settlementEditingController = TextEditingController();
   String? errorMessage;
 
@@ -22,53 +21,70 @@ class _WeatherSettlementInputState extends ConsumerState<WeatherSettlementInput>
     _settlementEditingController.dispose();
   }
 
-  void _submitSettlement () {
-    final bool settlementValid = _validateSettlement();
+  void _submitSettlement(String? settlement) {
+    final bool settlementValid = _validateSettlement(settlement);
     if (!settlementValid) {
       return;
     }
-    ref.read(weatherPageStateNotifierProvider.notifier)
+    ref.read(weatherPageStateNotifierProvider.notifier).getWeatherBySettlement(settlement!);
   }
 
-  bool _validateSettlement() {
-    errorMessage = null;
-    if(_settlementEditingController.value.text.isEmpty) {
-      errorMessage = 'The settlement is required';
+  bool _validateSettlement(String? settlement) {
+    setState(() {
+      errorMessage = null;
+    });
+    if (settlement == null || settlement.isEmpty) {
+      setState(() {
+        errorMessage = 'The settlement is required';
+      });
+      return false;
     }
-    final RegExp settlementRegRxp = RegExp(r'^[\d -!]+$');
+    final RegExp settlementRegRxp = RegExp(r'^[A-Za-zÀ-ÖØ-öø-ÿ !-]+$');
 
-    if (!settlementRegRxp.hasMatch(_settlementEditingController.value.text)) {
-      errorMessage = 'Please provide a valid settlement name';
+    if (!settlementRegRxp.hasMatch(settlement)) {
+      setState(() {
+        errorMessage = 'Please provide a valid settlement name';
+      });
+      return false;
     }
-    return errorMessage == null;
+    return true;
   }
-  
+
   @override
   Widget build(BuildContext context) {
+    const errorColor = Color(0xFFF8E71C);
     const UnderlineInputBorder inputBorder = UnderlineInputBorder(
       borderSide: BorderSide(color: Colors.white),
+    );
+    const UnderlineInputBorder errorBorder = UnderlineInputBorder(
+      borderSide: BorderSide(color: errorColor),
     );
     return WeatherScaffold(
         top: WeatherBox(
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
-          children:  [
+          children: [
             const Text(
               'Fetching your position wasn\'t successful, please provide your settlement below',
               style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             TextField(
-              decoration: const InputDecoration(
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
                 enabledBorder: inputBorder,
                 focusedBorder: inputBorder,
-                label: Text('Settlement'),
-                labelStyle: TextStyle(color: Colors.white),
+                errorBorder: errorBorder,
+                focusedErrorBorder: errorBorder,
+                label: const Text('Settlement'),
+                labelStyle: const TextStyle(color: Colors.white),
+                errorText: errorMessage,
+                errorStyle: const TextStyle(color: errorColor),
               ),
               cursorColor: Colors.white,
               controller: _settlementEditingController,
-              onEditingComplete: _submitSettlement,
+              onSubmitted: _submitSettlement,
             ),
           ],
         ),

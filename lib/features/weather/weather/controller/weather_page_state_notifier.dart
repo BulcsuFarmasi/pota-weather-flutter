@@ -29,8 +29,15 @@ class WeatherPageStateNotifier extends StateNotifier<WeatherPageState> {
     }
   }
 
-  void getWeatherBySettlement(String settlement) {
+  void getWeatherBySettlement(String settlement) async {
 
+    final Position position = await _weatherRepository.getPositionBySettlement(settlement);
+
+    _getWeather(settlement, position);
+  }
+
+  void restoreToInitial() {
+    state = const WeatherPageState.initial();
   }
 
   void _getWeather(String settlement, Position position) async {

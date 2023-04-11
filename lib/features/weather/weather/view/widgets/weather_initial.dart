@@ -8,7 +8,7 @@ class WeatherInitial extends ConsumerWidget {
   const WeatherInitial({super.key});
 
   void _detectSettlement(WidgetRef ref) {
-    ref.read(weatherPageStateNotifierProvider.notifier).detectLocation();
+    ref.read(weatherPageStateNotifierProvider.notifier).getWeatherByPosition();
   }
 
   @override

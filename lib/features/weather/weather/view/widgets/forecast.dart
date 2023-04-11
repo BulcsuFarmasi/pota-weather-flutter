@@ -27,7 +27,7 @@ class Forecast extends StatelessWidget {
         },
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(
-            width: 10,
+            width: 15,
           );
         },
         itemCount: forecast.length,
