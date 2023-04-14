@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 import 'package:pota_weather_flutter/features/weather/data/position.dart';
@@ -27,11 +29,16 @@ class PositionService {
     }
   }
 
-  Future<RemotePosition> getPositonBySettlement(String settlement) {
+  Future<RemotePosition> getPositionBySettlement(String settlement) {
     return _positionRemote.getPositionBySettlement(settlement);
   }
 
   Future<String> getSettlement(Position position) async {
+    try {
+      
     return await _positionRemote.getSettlement(position);
+    } on HttpException {
+      rethrow;
+    }
   }
 }
