@@ -8,7 +8,7 @@ import 'package:pota_weather_flutter/features/weather/data/remote_position.dart'
 import 'package:pota_weather_flutter/shared/env.dart';
 
 final Provider<PositionRemote> positionRemoteProvider =
-    Provider<PositionRemote>((Ref ref) => PositionRemote(ref.read(openWeatherMapKeyProvider)));
+Provider<PositionRemote>((Ref ref) => PositionRemote(ref.read(openWeatherMapKeyProvider)));
 
 class PositionRemote {
   PositionRemote(this.openWeatherMapKey);
@@ -18,12 +18,11 @@ class PositionRemote {
 
   Future<String> getSettlement(Position position) async {
     try {
-
-    Uri uri = Uri.parse(
-        '$baseUrl/revse?lat=${position.latitude}&lon=${position.longitude}&limit=1&appid=$openWeatherMapKey');
-    final http.Response response = await http.get(uri);
-    if (response.statusCode != 200) throw HttpException('${response.statusCode}');
-    return (jsonDecode(response.body) as List<dynamic>).first['local_names']['en'];
+      Uri uri = Uri.parse(
+          '$baseUrl/revse?lat=${position.latitude}&lon=${position.longitude}&limit=1&appid=$openWeatherMapKey');
+      final http.Response response = await http.get(uri);
+      if (response.statusCode != 200) throw HttpException('${response.statusCode}');
+      return (jsonDecode(response.body) as List<dynamic>).first['local_names']['en'];
     } on HttpException {
       rethrow;
     }

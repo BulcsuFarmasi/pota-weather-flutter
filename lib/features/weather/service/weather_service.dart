@@ -4,19 +4,19 @@ import 'package:pota_weather_flutter/features/weather/data/remote_current_weathe
 import 'package:pota_weather_flutter/features/weather/data/remote_forecast.dart';
 import 'package:pota_weather_flutter/features/weather/service/weather_remote.dart';
 
-final Provider<WeatherService> weatherServiceProvider = Provider<WeatherService>((Ref ref) => WeatherService(ref.read(weatherRemoteProvider)));
+final Provider<WeatherService> weatherServiceProvider =
+    Provider<WeatherService>((Ref ref) => WeatherService(ref.read(weatherRemoteProvider)));
 
 class WeatherService {
-  
   WeatherService(this._weatherRemote);
-  
+
   final WeatherRemote _weatherRemote;
-  
-  Future<RemoteCurrentWeather> getCurrentWeather(Position position)  {
+
+  Future<RemoteCurrentWeather> getCurrentWeather(Position position) {
     return _weatherRemote.getCurrentWeather(position);
   }
 
   Future<RemoteForecast> getForecast(Position position) async {
-  return _weatherRemote.getForecast(position);
-}
+    return _weatherRemote.getForecast(position);
+  }
 }

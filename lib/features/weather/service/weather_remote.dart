@@ -28,7 +28,8 @@ class WeatherRemote {
   }
 
   Future<RemoteForecast> getForecast(Position position) async {
-    final Uri uri = Uri.parse('$baseUrl/forecast?lat=${position.latitude}&lon=${position.longitude}&appid=$_openWeatherMapKey&units=metric');
+    final Uri uri = Uri.parse(
+        '$baseUrl/forecast?lat=${position.latitude}&lon=${position.longitude}&appid=$_openWeatherMapKey&units=metric');
 
     final http.Response response = await http.get(uri);
 

@@ -5,5 +5,5 @@ class WeatherCondition {
 
   final String icon;
 
-  String get iconUrl =>  'https://openweathermap.org/img/wn/$icon@4x.png';
+  String get iconUrl => 'https://openweathermap.org/img/wn/$icon@4x.png';
 }

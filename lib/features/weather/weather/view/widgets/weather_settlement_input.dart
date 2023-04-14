@@ -61,34 +61,34 @@ class _WeatherSettlementInputState extends ConsumerState<WeatherSettlementInput>
     );
     return WeatherScaffold(
         top: WeatherBox(
-      child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            const Text(
-              'Fetching your position wasn\'t successful, please provide your settlement below',
-              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                const Text(
+                  'Fetching your position wasn\'t successful, please provide your settlement below',
+                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                TextField(
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    enabledBorder: inputBorder,
+                    focusedBorder: inputBorder,
+                    errorBorder: errorBorder,
+                    focusedErrorBorder: errorBorder,
+                    label: const Text('Settlement'),
+                    labelStyle: const TextStyle(color: Colors.white),
+                    errorText: errorMessage,
+                    errorStyle: const TextStyle(color: errorColor),
+                  ),
+                  cursorColor: Colors.white,
+                  controller: _settlementEditingController,
+                  onSubmitted: _submitSettlement,
+                ),
+              ],
             ),
-            TextField(
-              style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                enabledBorder: inputBorder,
-                focusedBorder: inputBorder,
-                errorBorder: errorBorder,
-                focusedErrorBorder: errorBorder,
-                label: const Text('Settlement'),
-                labelStyle: const TextStyle(color: Colors.white),
-                errorText: errorMessage,
-                errorStyle: const TextStyle(color: errorColor),
-              ),
-              cursorColor: Colors.white,
-              controller: _settlementEditingController,
-              onSubmitted: _submitSettlement,
-            ),
-          ],
-        ),
-      ),
-    ));
+          ),
+        ));
   }
 }

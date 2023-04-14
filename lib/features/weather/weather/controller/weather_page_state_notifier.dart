@@ -23,14 +23,12 @@ class WeatherPageStateNotifier extends StateNotifier<WeatherPageState> {
       final String settlement = await _weatherRepository.getSettlement(position);
 
       _getWeather(settlement, position);
-
     } on PositionException {
       state = const WeatherPageState.settlementInput();
     }
   }
 
   void getWeatherBySettlement(String settlement) async {
-
     final Position position = await _weatherRepository.getPositionBySettlement(settlement);
 
     _getWeather(settlement, position);

@@ -8,14 +8,14 @@ class WeatherLocatingInProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WeatherScaffold(top: WeatherBox(
-            child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(10),
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
-                )),
-          ),);
+      child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(10),
+          child: const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          )),
+    ),);
   }
 }

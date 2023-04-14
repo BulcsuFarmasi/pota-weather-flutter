@@ -15,7 +15,6 @@ class PositionLocal {
   final Location _location;
 
   Future<LocationData> getPosition() async {
-
     bool serviceEnabled = await _location.serviceEnabled();
 
     serviceEnabled = !serviceEnabled ? await _location.requestService() : serviceEnabled;

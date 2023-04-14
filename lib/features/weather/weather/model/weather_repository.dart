@@ -29,9 +29,8 @@ class WeatherRepository {
 
   Future<Position> getPosition() async {
     try {
-
-    final LocationData locationData = await _positionService.getPosition();
-    return Position(locationData.latitude!, locationData.longitude!);
+      final LocationData locationData = await _positionService.getPosition();
+      return Position(locationData.latitude!, locationData.longitude!);
     } on PositionException {
       rethrow;
     }
@@ -44,8 +43,7 @@ class WeatherRepository {
 
   Future<String> getSettlement(Position position) async {
     try {
-
-    return await _positionService.getSettlement(position);
+      return await _positionService.getSettlement(position);
     } on HttpException {
       throw PositionException();
     }

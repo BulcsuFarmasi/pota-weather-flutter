@@ -1,3 +1,1 @@
-class PositionException implements Exception {
-
-}
+class PositionException implements Exception {}
