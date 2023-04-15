@@ -14,14 +14,8 @@ class WeatherSettlementInput extends ConsumerStatefulWidget {
 }
 
 class _WeatherSettlementInputState extends ConsumerState<WeatherSettlementInput> {
-  final TextEditingController _settlementEditingController = TextEditingController();
   String? errorMessage;
 
-  @override
-  void dispose() {
-    super.dispose();
-    _settlementEditingController.dispose();
-  }
 
   void _submitSettlement(String? settlement) {
     final bool settlementValid = _validateSettlement(settlement);
@@ -82,7 +76,6 @@ class _WeatherSettlementInputState extends ConsumerState<WeatherSettlementInput>
                 errorStyle: const TextStyle(color: errorColor),
               ),
               cursorColor: Colors.white,
-              controller: _settlementEditingController,
               onSubmitted: _submitSettlement,
             ),
           ],

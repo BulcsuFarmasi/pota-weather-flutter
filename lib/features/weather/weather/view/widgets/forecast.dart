@@ -12,7 +12,7 @@ class Forecast extends StatelessWidget {
 
   List<DateTime> get _dates => forecast.keys.toList();
 
-  List<DailyWeather> get _weathers => forecast.values.toList();
+  List<DailyWeather> get _dailyWeathers => forecast.values.toList();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class Forecast extends StatelessWidget {
         itemBuilder: (BuildContext buildContext, int index) {
           return ForecastItem(
             date: _dates[index],
-            weather: _weathers[index],
+            weather: _dailyWeathers[index],
           );
         },
         separatorBuilder: (BuildContext context, int index) {
