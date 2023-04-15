@@ -17,9 +17,12 @@ class WeatherBox extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(65),
         gradient: const LinearGradient(
-          colors: [Color(0xFF82DAF4), Color(0xFF126CF4)],
+          colors: [
+            Color(0xFF126CF4),
+            Color(0xFF82DAF4),
+          ],
           stops: [0.0496, 0.9735],
-          transform: GradientRotation(193.87 * pi / 180),
+          transform: GradientRotation(13.87 * pi / 180),
         ),
       ),
       child: child,

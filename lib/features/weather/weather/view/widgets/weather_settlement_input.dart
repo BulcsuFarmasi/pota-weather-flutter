@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pota_weather_flutter/features/weather/weather/controller/weather_page_state_notifier.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/error_text.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_box.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_scaffold.dart';
 import 'package:pota_weather_flutter/shared/colors.dart';
@@ -65,10 +66,8 @@ class _WeatherSettlementInputState extends ConsumerState<WeatherSettlementInput>
         padding: const EdgeInsets.all(15),
         child: Column(
           children: [
-            const Text(
+            const ErrorText(text:
               'Fetching your position wasn\'t successful, please provide your settlement below',
-              style: TextStyle(color: errorColor, fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
             ),
             TextField(
               style: const TextStyle(color: Colors.white),
