@@ -21,7 +21,6 @@ class WeatherPageStateNotifier extends StateNotifier<WeatherPageState> {
 
       final Position position = await _weatherRepository.getPosition();
 
-
       final String settlement = await _weatherRepository.getSettlement(position);
 
       _getWeather(settlement, position);
@@ -32,10 +31,9 @@ class WeatherPageStateNotifier extends StateNotifier<WeatherPageState> {
 
   void getWeatherBySettlement(String settlement) async {
     try {
+      final Position position = await _weatherRepository.getPositionBySettlement(settlement);
 
-    final Position position = await _weatherRepository.getPositionBySettlement(settlement);
-
-    _getWeather(settlement, position);
+      _getWeather(settlement, position);
     } on PositionException {
       state = const WeatherPageState.positionError();
     }
@@ -49,13 +47,10 @@ class WeatherPageStateNotifier extends StateNotifier<WeatherPageState> {
     state = WeatherPageState.weatherLoadInProgress(settlement);
 
     try {
-
-    final Weather weather = await _weatherRepository.getWeather(position, settlement);
-    state = WeatherPageState.weatherLoadSuccessful(weather);
-    } on WeatherException catch(e) {
+      final Weather weather = await _weatherRepository.getWeather(position, settlement);
+      state = WeatherPageState.weatherLoadSuccessful(weather);
+    } on WeatherException catch (e) {
       state = WeatherPageState.weatherError(e.weather);
     }
-
-
   }
 }

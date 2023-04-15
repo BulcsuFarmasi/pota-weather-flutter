@@ -39,7 +39,7 @@ class PositionService {
 
   Future<String> getSettlement(Position position) async {
     try {
-    return await _positionRemote.getSettlement(position);
+      return await _positionRemote.getSettlement(position);
     } on HttpException {
       rethrow;
     }

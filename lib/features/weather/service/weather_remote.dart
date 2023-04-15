@@ -20,17 +20,16 @@ class WeatherRemote {
 
   Future<RemoteCurrentWeather> getCurrentWeather(Position position) async {
     try {
+      final Uri uri = Uri.parse(
+          '$baseUrl/weather?lat=${position.latitude}&lon=${position.longitude}&appid=$_openWeatherMapKey&units=metric');
 
-    final Uri uri = Uri.parse(
-        '$baseUrl/weather?lat=${position.latitude}&lon=${position.longitude}&appid=$_openWeatherMapKey&units=metric');
+      final http.Response response = await http.get(uri);
 
-    final http.Response response = await http.get(uri);
+      if (response.statusCode != 200) {
+        throw HttpException('${response.statusCode}');
+      }
 
-    if (response.statusCode != 200) {
-      throw HttpException('${response.statusCode}');
-    }
-
-    return RemoteCurrentWeather.fromJson(jsonDecode(response.body));
+      return RemoteCurrentWeather.fromJson(jsonDecode(response.body));
     } on HttpException {
       rethrow;
     }
@@ -38,19 +37,17 @@ class WeatherRemote {
 
   Future<RemoteForecast> getForecast(Position position) async {
     try {
+      final Uri uri = Uri.parse(
+          '$baseUrl/forecast?lat=${position.latitude}&lon=${position.longitude}&appid=$_openWeatherMapKey&units=metric');
 
-    final Uri uri = Uri.parse(
-        '$baseUrl/forecast?lat=${position.latitude}&lon=${position.longitude}&appid=$_openWeatherMapKey&units=metric');
+      final http.Response response = await http.get(uri);
 
+      if (response.statusCode != 200) {
+        throw HttpException('${response.statusCode}');
+      }
 
-    final http.Response response = await http.get(uri);
-
-    if (response.statusCode != 200) {
-      throw HttpException('${response.statusCode}');
-    }
-
-    return RemoteForecast.fromJson(jsonDecode(response.body));
-    } on HttpException  {
+      return RemoteForecast.fromJson(jsonDecode(response.body));
+    } on HttpException {
       rethrow;
     }
   }

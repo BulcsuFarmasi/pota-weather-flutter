@@ -3,7 +3,6 @@ import 'package:pota_weather_flutter/features/weather/data/remote_weather_data.d
 import 'package:pota_weather_flutter/features/weather/data/remote_weather_main.dart';
 
 part 'remote_forecast_item.freezed.dart';
-
 part 'remote_forecast_item.g.dart';
 
 @freezed

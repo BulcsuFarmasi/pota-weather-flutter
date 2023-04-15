@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'remote_weather_main.freezed.dart';
-
 part 'remote_weather_main.g.dart';
 
 @freezed

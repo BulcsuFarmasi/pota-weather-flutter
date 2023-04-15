@@ -55,7 +55,6 @@ class WeatherRepository {
   }
 
   Future<Weather> getWeather(Position position, String settlement) async {
-
     DailyWeather? currentWeather;
 
     bool currentWeatherFailed = false;

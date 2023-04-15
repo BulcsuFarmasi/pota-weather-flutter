@@ -29,8 +29,7 @@ class WeatherPage extends ConsumerWidget {
                 WeatherLoadInProgress(settlement: weatherLoadInProgress.settlement),
             weatherLoadSuccessful: (weatherLoadSuccessful) =>
                 WeatherLoadSuccessful(weather: weatherLoadSuccessful.weather),
-            weatherError: (weatherError) =>
-                WeatherError(weather: weatherError.weather),
+            weatherError: (weatherError) => WeatherError(weather: weatherError.weather),
           ),
         ),
       ),
