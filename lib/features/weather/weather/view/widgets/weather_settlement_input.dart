@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pota_weather_flutter/features/weather/weather/controller/weather_page_state_notifier.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_box.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_scaffold.dart';
+import 'package:pota_weather_flutter/shared/colors.dart';
 
 class WeatherSettlementInput extends ConsumerStatefulWidget {
   const WeatherSettlementInput({super.key});
@@ -52,7 +53,6 @@ class _WeatherSettlementInputState extends ConsumerState<WeatherSettlementInput>
 
   @override
   Widget build(BuildContext context) {
-    const errorColor = Color(0xFFF8E71C);
     const UnderlineInputBorder inputBorder = UnderlineInputBorder(
       borderSide: BorderSide(color: Colors.white),
     );
@@ -67,7 +67,7 @@ class _WeatherSettlementInputState extends ConsumerState<WeatherSettlementInput>
               children: [
                 const Text(
                   'Fetching your position wasn\'t successful, please provide your settlement below',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: errorColor, fontSize: 18, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 TextField(

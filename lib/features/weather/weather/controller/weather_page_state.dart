@@ -11,9 +11,11 @@ class WeatherPageState with _$WeatherPageState {
 
   const factory WeatherPageState.settlementInput() = _SettlementInput;
 
+  const factory WeatherPageState.positionError() = _PositionError;
+
   const factory WeatherPageState.weatherLoadInProgress(String settlement) = _WeatherLoadInProgress;
 
   const factory WeatherPageState.weatherLoadSuccessful(Weather weather) = _WeatherLoadSuccesful;
 
-  const factory WeatherPageState.weatherError() = _WeatherError;
+  const factory WeatherPageState.weatherError(Weather weather) = _WeatherError;
 }

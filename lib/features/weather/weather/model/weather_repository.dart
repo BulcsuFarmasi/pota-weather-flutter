@@ -11,6 +11,7 @@ import 'package:pota_weather_flutter/features/weather/data/remote_forecast_item.
 import 'package:pota_weather_flutter/features/weather/data/remote_position.dart';
 import 'package:pota_weather_flutter/features/weather/data/weather.dart';
 import 'package:pota_weather_flutter/features/weather/data/weather_condition.dart';
+import 'package:pota_weather_flutter/features/weather/data/weather_expection.dart';
 import 'package:pota_weather_flutter/features/weather/service/position_service.dart';
 import 'package:pota_weather_flutter/features/weather/service/weather_service.dart';
 
@@ -37,8 +38,12 @@ class WeatherRepository {
   }
 
   Future<Position> getPositionBySettlement(String settlement) async {
-    final RemotePosition remotePosition = await _positionService.getPositionBySettlement(settlement);
-    return Position(remotePosition.lat, remotePosition.lon);
+    try {
+      final RemotePosition remotePosition = await _positionService.getPositionBySettlement(settlement);
+      return Position(remotePosition.lat, remotePosition.lon);
+    } on HttpException {
+      throw PositionException();
+    }
   }
 
   Future<String> getSettlement(Position position) async {
@@ -50,17 +55,38 @@ class WeatherRepository {
   }
 
   Future<Weather> getWeather(Position position, String settlement) async {
-    final RemoteCurrentWeather remoteCurrentWeather = await _weatherService.getCurrentWeather(position);
 
-    final DailyWeather currentWeather = DailyWeather(
-        WeatherCondition(remoteCurrentWeather.weather.first.main, remoteCurrentWeather.weather.first.icon),
-        remoteCurrentWeather.main.temp.round());
+    DailyWeather? currentWeather;
 
-    final RemoteForecast remoteForecast = await _weatherService.getForecast(position);
+    bool currentWeatherFailed = false;
 
-    Map<DateTime, DailyWeather> forecast = _convertRemoteForecastToForecast(remoteForecast);
+    try {
+      final RemoteCurrentWeather remoteCurrentWeather = await _weatherService.getCurrentWeather(position);
+      currentWeather = DailyWeather(
+          WeatherCondition(remoteCurrentWeather.weather.first.main, remoteCurrentWeather.weather.first.icon),
+          remoteCurrentWeather.main.temp.round());
+    } on HttpException {
+      currentWeatherFailed = true;
+    }
 
-    return Weather(settlement, currentWeather, forecast);
+    Map<DateTime, DailyWeather>? forecast;
+    bool forecastFailed = false;
+
+    try {
+      final RemoteForecast remoteForecast = await _weatherService.getForecast(position);
+
+      forecast = _convertRemoteForecastToForecast(remoteForecast);
+    } on HttpException {
+      forecastFailed = true;
+    }
+
+    Weather weather = Weather(settlement: settlement, currentWeather: currentWeather, forecast: forecast);
+
+    if (currentWeatherFailed || forecastFailed) {
+      throw WeatherException(weather);
+    } else {
+      return weather;
+    }
   }
 
   Map<DateTime, DailyWeather> _convertRemoteForecastToForecast(RemoteForecast remoteForecast) {

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pota_weather_flutter/features/weather/weather/controller/weather_page_state.dart';
 import 'package:pota_weather_flutter/features/weather/weather/controller/weather_page_state_notifier.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_error.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_initial.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_load_in_progress.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_load_succesful.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_locating_in_progress.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_position_error.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_settlement_input.dart';
 
 class WeatherPage extends ConsumerWidget {
@@ -22,11 +24,13 @@ class WeatherPage extends ConsumerWidget {
             initial: (_) => const WeatherInitial(),
             locatingInProgress: (_) => const WeatherLocatingInProgress(),
             settlementInput: (_) => const WeatherSettlementInput(),
+            positionError: (_) => const WeatherPositionError(),
             weatherLoadInProgress: (weatherLoadInProgress) =>
                 WeatherLoadInProgress(settlement: weatherLoadInProgress.settlement),
             weatherLoadSuccessful: (weatherLoadSuccessful) =>
                 WeatherLoadSuccessful(weather: weatherLoadSuccessful.weather),
-            weatherError: (_) => Container(),
+            weatherError: (weatherError) =>
+                WeatherError(weather: weatherError.weather),
           ),
         ),
       ),

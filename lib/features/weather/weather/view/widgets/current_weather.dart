@@ -37,10 +37,10 @@ class CurrentWeather extends ConsumerWidget {
           ],
         ),
         SizedBox(
-          height: 375,
+          height: 350,
           child: Image.network(
             weather.condition.iconUrl,
-            width: 375,
+            width: 350,
           ),
         ),
         Text(
@@ -49,7 +49,7 @@ class CurrentWeather extends ConsumerWidget {
         ),
         Text(
           weather.condition.description,
-          style: const TextStyle(fontSize: 22, color: Colors.white),
+          style: const TextStyle(fontSize: 30, color: Colors.white),
         )
       ],
     );

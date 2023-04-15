@@ -31,6 +31,7 @@ class PositionLocal {
       throw PositionException();
     }
 
+
     return _location.getLocation();
   }
 }

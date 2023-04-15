@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pota_weather_flutter/features/weather/data/position.dart';
 import 'package:pota_weather_flutter/features/weather/data/remote_current_weather.dart';
@@ -12,11 +14,19 @@ class WeatherService {
 
   final WeatherRemote _weatherRemote;
 
-  Future<RemoteCurrentWeather> getCurrentWeather(Position position) {
-    return _weatherRemote.getCurrentWeather(position);
+  Future<RemoteCurrentWeather> getCurrentWeather(Position position) async {
+    try {
+      return await _weatherRemote.getCurrentWeather(position);
+    } on HttpException {
+      rethrow;
+    }
   }
 
   Future<RemoteForecast> getForecast(Position position) async {
-    return _weatherRemote.getForecast(position);
+    try {
+      return await _weatherRemote.getForecast(position);
+    } on HttpException {
+      rethrow;
+    }
   }
 }

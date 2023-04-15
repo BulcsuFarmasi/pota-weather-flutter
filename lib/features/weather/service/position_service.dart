@@ -30,12 +30,16 @@ class PositionService {
   }
 
   Future<RemotePosition> getPositionBySettlement(String settlement) {
-    return _positionRemote.getPositionBySettlement(settlement);
+    try {
+      return _positionRemote.getPositionBySettlement(settlement);
+    } on HttpException {
+      rethrow;
+    }
   }
 
   Future<String> getSettlement(Position position) async {
     try {
-      return await _positionRemote.getSettlement(position);
+    return await _positionRemote.getSettlement(position);
     } on HttpException {
       rethrow;
     }

@@ -19,23 +19,25 @@ class PositionRemote {
   Future<String> getSettlement(Position position) async {
     try {
       Uri uri = Uri.parse(
-          '$baseUrl/revse?lat=${position.latitude}&lon=${position.longitude}&limit=1&appid=$openWeatherMapKey');
+          '$baseUrl/rerse?lat=${position.latitude}&lon=${position.longitude}&limit=1&appid=$openWeatherMapKey');
       final http.Response response = await http.get(uri);
       if (response.statusCode != 200) throw HttpException('${response.statusCode}');
       return (jsonDecode(response.body) as List<dynamic>).first['local_names']['en'];
     } on HttpException {
       rethrow;
     }
-    on XMLHttpRequest catch (e) {
-      throw HttpException(e.)
-    }
   }
 
   Future<RemotePosition> getPositionBySettlement(String settlement) async {
+    try {
+
     Uri uri = Uri.parse(
         '$baseUrl/direct?q=$settlement&limit=1&appid=$openWeatherMapKey');
     final http.Response response = await http.get(uri);
-    print(jsonDecode(response.body));
+    if (response.statusCode != 200) throw HttpException('${response.statusCode}');
     return RemotePosition.fromJson(jsonDecode(response.body).first);
+    } on HttpException {
+      rethrow;
+    }
   }
 }
