@@ -55,36 +55,39 @@ class WeatherRepository {
   }
 
   Future<Weather> getWeather(Position position, String settlement) async {
-    DailyWeather? currentWeather;
 
-    bool currentWeatherFailed = false;
 
-    try {
-      final RemoteCurrentWeather remoteCurrentWeather = await _weatherService.getCurrentWeather(position);
-      currentWeather = DailyWeather(
-          WeatherCondition(remoteCurrentWeather.weather.first.main, remoteCurrentWeather.weather.first.icon),
-          remoteCurrentWeather.main.temp.round());
-    } on HttpException {
-      currentWeatherFailed = true;
-    }
-
-    Map<DateTime, DailyWeather>? forecast;
-    bool forecastFailed = false;
-
-    try {
-      final RemoteForecast remoteForecast = await _weatherService.getForecast(position);
-
-      forecast = _convertRemoteForecastToForecast(remoteForecast);
-    } on HttpException {
-      forecastFailed = true;
-    }
+    DailyWeather? currentWeather = await _getCurrentWeather(position);
+    Map<DateTime, DailyWeather>? forecast = await _getForecast(position);
 
     Weather weather = Weather(settlement: settlement, currentWeather: currentWeather, forecast: forecast);
 
-    if (currentWeatherFailed || forecastFailed) {
+    if (weather.currentWeather == null || weather.forecast == null) {
       throw WeatherException(weather);
     } else {
       return weather;
+    }
+  }
+
+  Future<DailyWeather?> _getCurrentWeather(Position position) async {
+
+    try {
+      final RemoteCurrentWeather remoteCurrentWeather = await _weatherService.getCurrentWeather(position);
+      return DailyWeather(
+          WeatherCondition(remoteCurrentWeather.weather.first.main, remoteCurrentWeather.weather.first.icon),
+          remoteCurrentWeather.main.temp.round());
+    } on HttpException {
+      return null;
+    }
+  }
+
+  Future<Map<DateTime, DailyWeather>?> _getForecast(Position position) async {
+    try {
+      final RemoteForecast remoteForecast = await _weatherService.getForecast(position);
+
+      return _convertRemoteForecastToForecast(remoteForecast);
+    } on HttpException {
+      return null;
     }
   }
 
