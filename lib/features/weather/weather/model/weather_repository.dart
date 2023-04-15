@@ -55,8 +55,6 @@ class WeatherRepository {
   }
 
   Future<Weather> getWeather(Position position, String settlement) async {
-
-
     DailyWeather? currentWeather = await _getCurrentWeather(position);
     Map<DateTime, DailyWeather>? forecast = await _getForecast(position);
 
@@ -70,7 +68,6 @@ class WeatherRepository {
   }
 
   Future<DailyWeather?> _getCurrentWeather(Position position) async {
-
     try {
       final RemoteCurrentWeather remoteCurrentWeather = await _weatherService.getCurrentWeather(position);
       return DailyWeather(

@@ -16,7 +16,6 @@ class WeatherSettlementInput extends ConsumerStatefulWidget {
 class _WeatherSettlementInputState extends ConsumerState<WeatherSettlementInput> {
   String? errorMessage;
 
-
   void _submitSettlement(String? settlement) {
     final bool settlementValid = _validateSettlement(settlement);
     if (!settlementValid) {
@@ -60,8 +59,8 @@ class _WeatherSettlementInputState extends ConsumerState<WeatherSettlementInput>
         padding: const EdgeInsets.all(15),
         child: Column(
           children: [
-            const ErrorText(text:
-              'Fetching your position wasn\'t successful, please provide your settlement below',
+            const ErrorText(
+              text: 'Fetching your position wasn\'t successful, please provide your settlement below',
             ),
             TextField(
               style: const TextStyle(color: Colors.white),

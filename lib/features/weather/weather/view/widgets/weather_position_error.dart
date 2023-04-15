@@ -22,8 +22,8 @@ class WeatherPositionError extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const ErrorText(text:
-                'Your location cannot be determined in either way, please try again by tapping the button below',
+              const ErrorText(
+                text: 'Your location cannot be determined in either way, please try again by tapping the button below',
               ),
               const SizedBox(
                 height: 10,

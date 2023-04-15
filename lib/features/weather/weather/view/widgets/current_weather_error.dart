@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/error_text.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/settlement.dart';
-import 'package:pota_weather_flutter/shared/colors.dart';
 
 class CurrentWeatherError extends StatelessWidget {
   const CurrentWeatherError({
