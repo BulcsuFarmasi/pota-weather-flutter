@@ -27,9 +27,12 @@ class ForecastItem extends StatelessWidget {
             '${weather.temperature} °C',
             style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
-          Image.network(
-            weather.condition.iconUrl,
-            width: 48,
+          SizedBox(
+            height: 48,
+            child: Image.network(
+              weather.condition.iconUrl,
+              width: 48,
+            ),
           ),
           Text(DateFormat('E').format(date), style: const TextStyle(fontSize: 16, color: Colors.white)),
         ],

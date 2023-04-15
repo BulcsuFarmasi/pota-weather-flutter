@@ -6,9 +6,16 @@ part 'weather_page_state.freezed.dart';
 @freezed
 class WeatherPageState with _$WeatherPageState {
   const factory WeatherPageState.initial() = _Initial;
+
   const factory WeatherPageState.locatingInProgress() = _LocatingInProgress;
-  const factory WeatherPageState.locationInput() = _LocationInput;
-  const factory WeatherPageState.weatherLoadInProgress(String location) = _WeatherLoadInProgress;
+
+  const factory WeatherPageState.settlementInput() = _SettlementInput;
+
+  const factory WeatherPageState.positionError() = _PositionError;
+
+  const factory WeatherPageState.weatherLoadInProgress(String settlement) = _WeatherLoadInProgress;
+
   const factory WeatherPageState.weatherLoadSuccessful(Weather weather) = _WeatherLoadSuccesful;
-  const factory WeatherPageState.weatherError() = _WeatherError;
+
+  const factory WeatherPageState.weatherError(Weather weather) = _WeatherError;
 }

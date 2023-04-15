@@ -1,27 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:pota_weather_flutter/features/weather/data/daily_weather.dart';
-import 'package:pota_weather_flutter/features/weather/data/weather.dart';
-import 'package:pota_weather_flutter/features/weather/data/weather_condition.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pota_weather_flutter/features/weather/weather/controller/weather_page_state.dart';
+import 'package:pota_weather_flutter/features/weather/weather/controller/weather_page_state_notifier.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_error.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_initial.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_load_in_progress.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_load_succesful.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_locating_in_progress.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_position_error.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_settlement_input.dart';
 
-class WeatherPage extends StatelessWidget {
-  WeatherPage({super.key});
-
-  final Weather weather = Weather('Budapest', const DailyWeather(WeatherCondition.brokenClouds, 6), {
-    DateTime(2023, 4, 6): const DailyWeather(WeatherCondition.scatteredClouds, 11),
-    DateTime(2023, 4, 7): const DailyWeather(WeatherCondition.scatteredClouds, 10),
-    DateTime(2023, 4, 8): const DailyWeather(WeatherCondition.rain, 9),
-    DateTime(2023, 4, 9): const DailyWeather(WeatherCondition.scatteredClouds, 13),
-    DateTime(2023, 4, 10): const DailyWeather(WeatherCondition.scatteredClouds, 16),
-  });
+class WeatherPage extends ConsumerWidget {
+  const WeatherPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const SafeArea(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final WeatherPageState state = ref.watch(weatherPageStateNotifierProvider);
+    return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: EdgeInsets.all(10),
-          child: WeatherLoadInProgress(location: 'Budapest'),
+          padding: const EdgeInsets.all(10),
+          child: state.map(
+            initial: (_) => const WeatherInitial(),
+            locatingInProgress: (_) => const WeatherLocatingInProgress(),
+            settlementInput: (_) => const WeatherSettlementInput(),
+            positionError: (_) => const WeatherPositionError(),
+            weatherLoadInProgress: (weatherLoadInProgress) =>
+                WeatherLoadInProgress(settlement: weatherLoadInProgress.settlement),
+            weatherLoadSuccessful: (weatherLoadSuccessful) =>
+                WeatherLoadSuccessful(weather: weatherLoadSuccessful.weather),
+            weatherError: (weatherError) => WeatherError(weather: weatherError.weather),
+          ),
         ),
       ),
     );

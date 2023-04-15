@@ -2,11 +2,14 @@ import 'package:flutter/widgets.dart';
 import 'package:pota_weather_flutter/features/weather/data/weather.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/current_weather.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/forecast.dart';
+import 'package:pota_weather_flutter/features/weather/weather/view/widgets/forecast_error.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_box.dart';
 import 'package:pota_weather_flutter/features/weather/weather/view/widgets/weather_scaffold.dart';
 
-class WeatherLoadSuccessful extends StatelessWidget {
-  const WeatherLoadSuccessful({
+import 'current_weather_error.dart';
+
+class WeatherError extends StatelessWidget {
+  const WeatherError({
     super.key,
     required this.weather,
   });
@@ -17,11 +20,14 @@ class WeatherLoadSuccessful extends StatelessWidget {
   Widget build(BuildContext context) {
     return WeatherScaffold(
       top: WeatherBox(
-          child: CurrentWeather(
-        weather: weather.currentWeather!,
-        settlement: weather.settlement,
-      )),
-      bottom: Forecast(forecast: weather.forecast!),
+        child: weather.currentWeather != null
+            ? CurrentWeather(
+                weather: weather.currentWeather!,
+                settlement: weather.settlement,
+              )
+            : CurrentWeatherError(settlement: weather.settlement),
+      ),
+      bottom: weather.forecast != null ? Forecast(forecast: weather.forecast!) : const ForecastError(),
     );
   }
 }
